@@ -1,0 +1,10 @@
+@Autowired
+private DataSourceTransactionManager transactionManager;
+
+public void performTransaction() {
+    TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+    transactionTemplate.executeWithoutResult(status -> {
+        jdbcTemplate.update("INSERT INTO table1 (column) VALUES (?)", "value1");
+        jdbcTemplate.update("INSERT INTO table2 (column) VALUES (?)", "value2");
+    });
+}
